@@ -1,0 +1,50 @@
+### THIS FILE IS MANAGED BY PUPPET. ANY MANUAL CHANGES WILL GET OVERWRITTEN.
+
+# Daemon settings
+Port <%= port %>
+ListenAddress <%= listenaddress %>
+Protocol 2
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+UsePrivilegeSeparation yes
+KeyRegenerationInterval 3600
+ServerKeyBits 768
+SyslogFacility AUTH
+LogLevel INFO
+
+# Login/authentication
+
+LoginGraceTime 120
+PermitRootLogin <%= permitrootlogin %>
+StrictModes yes
+RSAAuthentication yes
+PubkeyAuthentication yes
+#AuthorizedKeysFile	%h/.ssh/authorized_keys
+IgnoreRhosts yes
+RhostsRSAAuthentication no
+HostbasedAuthentication no
+#IgnoreUserKnownHosts yes
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+PasswordAuthentication <%= passwordauthentication %>
+#KerberosAuthentication no
+#KerberosGetAFSToken no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
+
+# Misc settings
+
+X11Forwarding no
+X11DisplayOffset 10
+PrintMotd yes
+PrintLastLog yes
+TCPKeepAlive yes
+#UseLogin no
+#MaxStartups 10:30:60
+#Banner /etc/issue.net
+AcceptEnv LANG LC_*
+UsePAM yes
+
+Subsystem sftp internal-sftp
