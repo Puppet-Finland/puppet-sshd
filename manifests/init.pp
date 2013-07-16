@@ -33,7 +33,7 @@
 # See file LICENSE for details
 #
 class sshd(
-    $listenaddress          = ['0.0.0.0'],
+    $listenaddress          = '0.0.0.0',
     $port                   = 22,
     $permitrootlogin        = 'yes',
     $passwordauthentication = 'yes'
