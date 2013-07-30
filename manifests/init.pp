@@ -13,6 +13,9 @@
 #   Allow root logins (yes/no). Defaults to "yes".
 # [*passwordauthentication*]
 #   Allow logins using password (yes/no). Defaults to "yes".
+# [*monitor_email*]
+#   Email address where local service monitoring software sends it's reports to.
+#   Defaults to top scope variable $::servermonitor.
 #
 # == Examples
 #
@@ -36,7 +39,8 @@ class sshd(
     $listenaddress          = '0.0.0.0',
     $port                   = 22,
     $permitrootlogin        = 'yes',
-    $passwordauthentication = 'yes'
+    $passwordauthentication = 'yes',
+    $monitor_email = $::servermonitor
 )
 {
 
@@ -57,4 +61,9 @@ class sshd(
         }
     }
 
+    if tagged('monit') {
+        class { 'sshd::monit':
+            monitor_email => $monitor_email,
+        }
+    }
 }
