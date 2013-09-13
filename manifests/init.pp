@@ -53,7 +53,7 @@ class sshd(
 # in the node's yaml/json file to disable management of this particular class. A 
 # cleaner approach implemented at the Hiera level would be most welcome...
 #
-if hiera('manage_sshd') != 'false' {
+if hiera('manage_sshd', 'true') != 'false' {
 
     include sshd::install
 
