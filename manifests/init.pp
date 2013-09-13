@@ -44,6 +44,17 @@ class sshd(
 )
 {
 
+# Hiera does not seems to allow any clean way to exclude classes that have 
+# already been defined at lower levels of the hierarchy. The method below allows 
+# us to define
+#
+# "manage_sshd: 'false'
+#
+# in the node's yaml/json file to disable management of this particular class. A 
+# cleaner approach implemented at the Hiera level would be most welcome...
+#
+if hiera('manage_sshd') != 'false' {
+
     include sshd::install
 
     class { 'sshd::config':
@@ -66,4 +77,5 @@ class sshd(
             monitor_email => $monitor_email,
         }
     }
+}
 }
