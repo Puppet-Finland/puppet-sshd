@@ -15,7 +15,7 @@ class sshd::config(
         content => template('sshd/sshd_config.erb'),
         ensure  => present,
         owner   => root,
-        group   => root,
+        group   => "${::sshd::params::admingroup}",
         mode    => 644,
         require => Class['sshd::install'],
         notify  => Class['sshd::service'],

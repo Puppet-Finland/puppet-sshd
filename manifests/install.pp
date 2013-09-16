@@ -7,8 +7,11 @@ class sshd::install {
 
     include sshd::params
 
-    package { 'sshd-openssh-server':
-        name   => $sshd::params::package_name,
-        ensure => installed,
+    # Sshd is bundled with FreeBSD and can't be installed separately
+    if $::operatingsystem != 'FreeBSD' {
+        package { 'sshd-openssh-server':
+            name   => "${::sshd::params::package_name}",
+            ensure => installed,
+        }
     }
 }

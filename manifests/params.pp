@@ -10,16 +10,24 @@ class sshd::params {
             $package_name = 'openssh-server'
             $service_name = 'sshd'
             $service_command = "/sbin/service $service_name"
+            $admingroup = 'root'
         }
         'Debian': {
             $package_name = 'openssh-server'
             $service_name = 'ssh'
             $service_command = "/usr/sbin/service $service_name"
+            $admingroup = 'root'
+        }
+        'FreeBSD': {
+            $service_name = 'sshd'
+            $service_command = "/usr/sbin/service $service_name"
+            $admingroup = 'wheel'
         }
         default: {
             $package_name = 'openssh-server'
             $service_name = 'ssh'
             $service_command = "/usr/sbin/service $service_name"
+            $admingroup = 'root'
         }
     }
 
