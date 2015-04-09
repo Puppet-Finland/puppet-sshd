@@ -5,6 +5,8 @@
 #
 class sshd::params {
 
+    include os::params
+
     case $::osfamily {
         'RedHat': {
             $package_name = 'openssh-server'
@@ -31,11 +33,7 @@ class sshd::params {
             $service_stop = "/etc/rc.d/$service_name stop"
         }
         default: {
-            $package_name = 'openssh-server'
-            $service_name = 'ssh'
-            $service_command = "/usr/sbin/service $service_name"
-            $service_start = "/usr/sbin/service $service_name start"
-            $service_stop = "/usr/sbin/service $service_name stop"
+            fail("Unsupported operatingsystem ${::operatingsystem}")
         }
     }
 

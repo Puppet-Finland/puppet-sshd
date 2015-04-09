@@ -3,13 +3,17 @@
 #
 # Setup packet filtering rules for sshd
 #
-class sshd::packetfilter($port) {
+class sshd::packetfilter
+(
+    $port
 
+) inherits sshd::params
+{
     firewall { '001 ipv4 accept ssh port':
         provider => 'iptables',
         chain  => 'INPUT',
         proto => 'tcp',
-        port => "${port}",
+        port => $port,
         action => 'accept',
     }
 
@@ -17,7 +21,7 @@ class sshd::packetfilter($port) {
         provider => 'ip6tables',
         chain  => 'INPUT',
         proto => 'tcp',
-        port => "${port}",
+        port => $port,
         action => 'accept',
     }
 }

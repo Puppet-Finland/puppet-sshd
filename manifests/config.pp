@@ -3,15 +3,15 @@
 #
 # Configure sshd
 #
-class sshd::config(
+class sshd::config
+(
     $listenaddress,
     $port,
     $permitrootlogin,
     $passwordauthentication
-)
-{
 
-    include os::params
+) inherits sshd::params
+{
 
     file { 'sshd-sshd_config':
         name    => '/etc/ssh/sshd_config',

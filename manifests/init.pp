@@ -3,8 +3,14 @@
 #
 # Install and configure sshd
 #
-# == Params:
-# 
+# == Parameters
+#
+# [*manage*]
+#   Whether to manage sshd using Puppet or not. Valid values are 'yes' (default) 
+#   and 'no'.
+# [*manage_config*]
+#   Whether to manage sshd configuration using Puppet or not. Valid values are 
+#   'yes' (default) and 'no'.
 # [*listenaddress*]
 #   Local IP-addresses sshd binds to. Defaults to "0.0.0.0" (all interfaces).
 # [*port*]
@@ -36,7 +42,10 @@
 #
 # BSD-license. See file LICENSE for details.
 #
-class sshd(
+class sshd
+(
+    $manage                 = 'yes',
+    $manage_config          = 'yes',
     $listenaddress          = '0.0.0.0',
     $port                   = 22,
     $permitrootlogin        = 'yes',
@@ -45,24 +54,17 @@ class sshd(
 )
 {
 
-# Hiera does not seems to allow any clean way to exclude classes that have 
-# already been defined at lower levels of the hierarchy. The method below allows 
-# us to define
-#
-# "manage_sshd: 'false'
-#
-# in the node's yaml/json file to disable management of this particular class. A 
-# cleaner approach implemented at the Hiera level would be most welcome...
-#
-if hiera('manage_sshd', 'true') != 'false' {
+if $manage == 'yes' {
 
     include sshd::install
 
-    class { 'sshd::config':
-        listenaddress => $listenaddress,
-        port => $port,
-        permitrootlogin => $permitrootlogin,
-        passwordauthentication => $passwordauthentication,
+    if $manage_config == 'yes' {
+        class { 'sshd::config':
+            listenaddress => $listenaddress,
+            port => $port,
+            permitrootlogin => $permitrootlogin,
+            passwordauthentication => $passwordauthentication,
+        }
     }
 
     include sshd::service
