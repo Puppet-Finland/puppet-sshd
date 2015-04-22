@@ -56,27 +56,27 @@ class sshd
 
 if $manage == 'yes' {
 
-    include sshd::install
+    include ::sshd::install
 
     if $manage_config == 'yes' {
-        class { 'sshd::config':
-            listenaddress => $listenaddress,
-            port => $port,
-            permitrootlogin => $permitrootlogin,
+        class { '::sshd::config':
+            listenaddress          => $listenaddress,
+            port                   => $port,
+            permitrootlogin        => $permitrootlogin,
             passwordauthentication => $passwordauthentication,
         }
     }
 
-    include sshd::service
+    include ::sshd::service
 
     if tagged('packetfilter') {
-        class { 'sshd::packetfilter':
+        class { '::sshd::packetfilter':
             port => $port
         }
     }
 
     if tagged('monit') {
-        class { 'sshd::monit':
+        class { '::sshd::monit':
             monitor_email => $monitor_email,
         }
     }

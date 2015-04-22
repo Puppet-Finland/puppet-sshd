@@ -14,12 +14,12 @@ class sshd::config
 {
 
     file { 'sshd-sshd_config':
+        ensure  => present,
         name    => '/etc/ssh/sshd_config',
         content => template('sshd/sshd_config.erb'),
-        ensure  => present,
-        owner   => root,
-        group   => "${::os::params::admingroup}",
-        mode    => 644,
+        owner   => $::os::params::adminuser,
+        group   => $::os::params::admingroup,
+        mode    => '0644',
         require => Class['sshd::install'],
         notify  => Class['sshd::service'],
     }
