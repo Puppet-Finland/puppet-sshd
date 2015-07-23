@@ -13,6 +13,9 @@ class sshd::config
 ) inherits sshd::params
 {
 
+    # Copy the $host_keys variable to a local variable for template
+    $host_keys = $::sshd::params::host_keys
+
     file { 'sshd-sshd_config':
         ensure  => present,
         name    => '/etc/ssh/sshd_config',
