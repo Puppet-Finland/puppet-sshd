@@ -8,7 +8,8 @@ class sshd::config
     $listenaddress,
     $port,
     $permitrootlogin,
-    $passwordauthentication
+    $passwordauthentication,
+    $kerberosauthentication
 
 ) inherits sshd::params
 {

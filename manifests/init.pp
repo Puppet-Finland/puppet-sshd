@@ -19,6 +19,10 @@
 #   Allow root logins (yes/no). Defaults to "yes".
 # [*passwordauthentication*]
 #   Allow logins using password (yes/no). Defaults to "yes".
+# [*kerberosauthentication*]
+#   Allow Kerberos authentication. This is required when using pam_winbind and 
+#   logging in using credentials from Samba4 / Active Directory domain. Valid 
+#   values are 'yes' and 'no' (default).
 # [*monitor_email*]
 #   Email address where local service monitoring software sends it's reports to.
 #   Defaults to top scope variable $::servermonitor.
@@ -50,6 +54,7 @@ class sshd
     $port                   = 22,
     $permitrootlogin        = 'yes',
     $passwordauthentication = 'yes',
+    $kerberosauthentication = 'no',
     $monitor_email = $::servermonitor
 )
 {
@@ -64,6 +69,7 @@ if $manage == 'yes' {
             port                   => $port,
             permitrootlogin        => $permitrootlogin,
             passwordauthentication => $passwordauthentication,
+            kerberosauthentication => $kerberosauthentication,
         }
     }
 
