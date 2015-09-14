@@ -1,10 +1,10 @@
 ### THIS FILE IS MANAGED BY PUPPET. ANY MANUAL CHANGES WILL GET OVERWRITTEN.
 
 # Daemon settings
-Port <%= port %>
-ListenAddress <%= listenaddress %>
+Port <%= @port %>
+ListenAddress <%= @listenaddress %>
 Protocol 2
-<% host_keys.each do |host_key| -%>
+<% @host_keys.each do |host_key| -%>
 HostKey /etc/ssh/ssh_host_<%= host_key %>_key
 <% end -%>
 UsePrivilegeSeparation yes
@@ -16,7 +16,7 @@ LogLevel INFO
 # Login/authentication
 
 LoginGraceTime 120
-PermitRootLogin <%= permitrootlogin %>
+PermitRootLogin <%= @permitrootlogin %>
 StrictModes yes
 RSAAuthentication yes
 PubkeyAuthentication yes
@@ -27,8 +27,8 @@ HostbasedAuthentication no
 #IgnoreUserKnownHosts yes
 PermitEmptyPasswords no
 ChallengeResponseAuthentication no
-PasswordAuthentication <%= passwordauthentication %>
-KerberosAuthentication <%= kerberosauthentication %>
+PasswordAuthentication <%= @passwordauthentication %>
+KerberosAuthentication <%= @kerberosauthentication %>
 #KerberosGetAFSToken no
 #KerberosOrLocalPasswd yes
 #KerberosTicketCleanup yes
