@@ -13,7 +13,7 @@ class sshd::packetfilter
         provider => 'iptables',
         chain    => 'INPUT',
         proto    => 'tcp',
-        port     => $port,
+        dport    => $port,
         action   => 'accept',
     }
 
@@ -21,7 +21,7 @@ class sshd::packetfilter
         provider => 'ip6tables',
         chain    => 'INPUT',
         proto    => 'tcp',
-        port     => $port,
+        dport    => $port,
         action   => 'accept',
     }
 }
