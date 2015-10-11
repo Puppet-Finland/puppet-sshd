@@ -12,7 +12,9 @@
 #   Whether to manage sshd configuration using Puppet or not. Valid values are 
 #   'yes' (default) and 'no'.
 # [*listenaddress*]
-#   Local IP-addresses sshd binds to. Defaults to "0.0.0.0" (all interfaces).
+#   Local IP-addresses sshd binds to. This can be an string containing one bind 
+#   address or an array containing one or more. Defaults to "0.0.0.0" (all 
+#   IPv4 interfaces).
 # [*port*]
 #   Port on which sshd listens on. Defaults to 22.
 # [*permitrootlogin*]
@@ -61,11 +63,13 @@ class sshd
 
 if $manage == 'yes' {
 
+    $listenaddresses = any2array($listenaddress)
+
     include ::sshd::install
 
     if $manage_config == 'yes' {
         class { '::sshd::config':
-            listenaddress          => $listenaddress,
+            listenaddresses        => $listenaddresses,
             port                   => $port,
             permitrootlogin        => $permitrootlogin,
             passwordauthentication => $passwordauthentication,

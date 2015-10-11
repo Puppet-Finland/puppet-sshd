@@ -5,7 +5,7 @@
 #
 class sshd::config
 (
-    $listenaddress,
+    $listenaddresses,
     $port,
     $permitrootlogin,
     $passwordauthentication,

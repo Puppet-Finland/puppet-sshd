@@ -2,7 +2,9 @@
 
 # Daemon settings
 Port <%= @port %>
-ListenAddress <%= @listenaddress %>
+<% @listenaddresses.each do |listenaddress| -%>
+ListenAddress <%= listenaddress %>
+<% end -%>
 Protocol 2
 <% @host_keys.each do |host_key| -%>
 HostKey /etc/ssh/ssh_host_<%= host_key %>_key
