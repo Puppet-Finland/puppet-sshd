@@ -18,7 +18,7 @@
 # [*port*]
 #   Port on which sshd listens on. Defaults to 22.
 # [*permitrootlogin*]
-#   Allow root logins (yes/no). Defaults to "yes".
+#   Allow root logins (yes/no/without-password). Defaults to "yes".
 # [*passwordauthentication*]
 #   Allow logins using password (yes/no). Defaults to "yes".
 # [*kerberosauthentication*]
