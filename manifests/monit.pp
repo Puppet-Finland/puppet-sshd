@@ -10,6 +10,7 @@ class sshd::monit
 ) inherits sshd::params
 {
     monit::fragment { 'sshd-sshd.monit':
+        basename   => 'sshd',
         modulename => 'sshd',
     }
 }
