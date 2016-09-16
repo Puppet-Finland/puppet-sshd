@@ -15,8 +15,7 @@ class sshd::params {
             # In theory RedHat and Fedora versioning could collide here, but in 
             # practice that is highly unlikely.
             $host_keys = $::operatingsystemmajrelease ? {
-                '21'    => ['rsa', 'ecdsa', 'ed25519' ],
-                '7'     => ['rsa', 'ecdsa', 'ed25519' ],
+                /^(7|21|24)$/    => ['rsa', 'ecdsa', 'ed25519' ],
                 '6'     => ['dsa', 'rsa' ],
                 default => ['dsa', 'rsa' ],
             }
