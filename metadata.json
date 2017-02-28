@@ -1,6 +1,6 @@
 {
   "name": "puppetfinland-sshd",
-  "version": "0.5.4",
+  "version": "1.0.0",
   "author": "Puppet-Finland team",
   "license": "BSD license",
   "summary": "Setup sshd",

@@ -6,11 +6,11 @@
 # == Parameters
 #
 # [*manage*]
-#   Whether to manage sshd using Puppet or not. Valid values are 'yes' (default) 
-#   and 'no'.
+#   Whether to manage sshd using Puppet or not. Valid values are true (default) 
+#   and false.
 # [*manage_config*]
 #   Whether to manage sshd configuration using Puppet or not. Valid values are 
-#   'yes' (default) and 'no'.
+#   true (default) and false.
 # [*listenaddress*]
 #   Local IP-addresses sshd binds to. This can be an string containing one bind 
 #   address or an array containing one or more. Defaults to "0.0.0.0" (all 
@@ -29,13 +29,6 @@
 #   Email address where local service monitoring software sends it's reports to.
 #   Defaults to top scope variable $::servermonitor.
 #
-# == Examples
-#
-#   class { 'sshd':
-#       permitrootlogin => 'yes',
-#       passwordauthentication => 'no'
-#   }
-# 
 # == Authors
 #
 # Samuli Seppänen <samuli.seppanen@gmail.com>
@@ -50,24 +43,24 @@
 #
 class sshd
 (
-    $manage                 = 'yes',
-    $manage_config          = 'yes',
-    $listenaddress          = '0.0.0.0',
-    $port                   = 22,
-    $permitrootlogin        = 'yes',
-    $passwordauthentication = 'yes',
-    $kerberosauthentication = 'no',
-    $monitor_email = $::servermonitor
+    Boolean $manage = true,
+    Boolean $manage_config = true,
+            $listenaddress = '0.0.0.0',
+            $port = 22,
+            $permitrootlogin = 'yes',
+            $passwordauthentication = 'yes',
+            $kerberosauthentication = 'no',
+            $monitor_email = $::servermonitor
 )
 {
 
-if $manage == 'yes' {
+if $manage {
 
     $listenaddresses = any2array($listenaddress)
 
     include ::sshd::install
 
-    if $manage_config == 'yes' {
+    if $manage_config {
         class { '::sshd::config':
             listenaddresses        => $listenaddresses,
             port                   => $port,
