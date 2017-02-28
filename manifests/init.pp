@@ -11,6 +11,10 @@
 # [*manage_config*]
 #   Whether to manage sshd configuration using Puppet or not. Valid values are 
 #   true (default) and false.
+# [*manage_packetfilter*]
+#   Manage packet filtering rules. Valid values are true (default) and false.
+# [*manage_monit*]
+#   Manage monit rules. Valid values are true (default) and false.
 # [*listenaddress*]
 #   Local IP-addresses sshd binds to. This can be an string containing one bind 
 #   address or an array containing one or more. Defaults to "0.0.0.0" (all 
@@ -45,6 +49,8 @@ class sshd
 (
     Boolean $manage = true,
     Boolean $manage_config = true,
+    Boolean $manage_packetfilter = true,
+    Boolean $manage_monit = true,
             $listenaddress = '0.0.0.0',
             $port = 22,
             $permitrootlogin = 'yes',
@@ -72,13 +78,13 @@ if $manage {
 
     include ::sshd::service
 
-    if tagged('packetfilter') {
+    if $manage_packetfilter {
         class { '::sshd::packetfilter':
             port => $port
         }
     }
 
-    if tagged('monit') {
+    if $manage_monit {
         class { '::sshd::monit':
             monitor_email => $monitor_email,
         }

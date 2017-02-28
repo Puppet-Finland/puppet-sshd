@@ -9,19 +9,21 @@ class sshd::packetfilter
 
 ) inherits sshd::params
 {
-    firewall { '001 ipv4 accept ssh port':
+    @firewall { '001 ipv4 accept ssh port':
         provider => 'iptables',
         chain    => 'INPUT',
         proto    => 'tcp',
         dport    => $port,
         action   => 'accept',
+        tag      => 'default',
     }
 
-    firewall { '001 ipv6 accept ssh port':
+    @firewall { '001 ipv6 accept ssh port':
         provider => 'ip6tables',
         chain    => 'INPUT',
         proto    => 'tcp',
         dport    => $port,
         action   => 'accept',
+        tag      => 'default',
     }
 }
