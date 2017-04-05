@@ -5,7 +5,8 @@
 #
 class sshd::packetfilter
 (
-    $port
+    Integer          $port,
+    Optional[String] $limit
 
 ) inherits sshd::params
 {
@@ -15,6 +16,7 @@ class sshd::packetfilter
         proto    => 'tcp',
         dport    => $port,
         action   => 'accept',
+        limit    => $limit,
         tag      => 'default',
     }
 
@@ -24,6 +26,7 @@ class sshd::packetfilter
         proto    => 'tcp',
         dport    => $port,
         action   => 'accept',
+        limit    => $limit,
         tag      => 'default',
     }
 }

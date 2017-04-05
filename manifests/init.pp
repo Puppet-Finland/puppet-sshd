@@ -21,6 +21,9 @@
 #   IPv4 interfaces).
 # [*port*]
 #   Port on which sshd listens on. Defaults to 22.
+# [*limit*]
+#   Rate limit for SSH connections. For example '3/min'. Only affects
+#   iptables/ip6tables rules and is undef by default.
 # [*permitrootlogin*]
 #   Allow root logins (yes/no/without-password). Defaults to "yes".
 # [*passwordauthentication*]
@@ -53,6 +56,7 @@ class sshd
     Boolean $manage_monit = true,
             $listenaddress = '0.0.0.0',
             $port = 22,
+            $limit = undef,
             $permitrootlogin = 'yes',
             $passwordauthentication = 'yes',
             $kerberosauthentication = 'no',
@@ -80,7 +84,8 @@ if $manage {
 
     if $manage_packetfilter {
         class { '::sshd::packetfilter':
-            port => $port
+            port  => $port,
+            limit => $limit,
         }
     }
 
