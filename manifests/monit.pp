@@ -5,7 +5,7 @@
 #
 class sshd::monit
 (
-    $monitor_email
+    String $monitor_email
 
 ) inherits sshd::params
 {

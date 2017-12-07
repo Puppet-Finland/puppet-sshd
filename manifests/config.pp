@@ -5,11 +5,11 @@
 #
 class sshd::config
 (
-    $listenaddresses,
-    $port,
-    $permitrootlogin,
-    $passwordauthentication,
-    $kerberosauthentication
+    Array[String]    $listenaddresses,
+    Integer          $port,
+    Enum['yes','no'] $permitrootlogin,
+    Enum['yes','no'] $passwordauthentication,
+    Enum['yes','no'] $kerberosauthentication
 
 ) inherits sshd::params
 {
