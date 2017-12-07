@@ -32,6 +32,9 @@
 #   Allow Kerberos authentication. This is required when using pam_winbind and 
 #   logging in using credentials from Samba4 / Active Directory domain. Valid 
 #   values are 'yes' and 'no' (default).
+# [*gssapiauthentication*]
+#   Allow GSSAPI authentication (e.g. for FreeIPA integration). Valid values are 
+#   'yes' and 'no' (default).
 # [*monitor_email*]
 #   Email address where local service monitoring software sends it's reports to.
 #   Defaults to top scope variable $::servermonitor.
@@ -60,6 +63,7 @@ class sshd
             $permitrootlogin = 'yes',
             $passwordauthentication = 'yes',
             $kerberosauthentication = 'no',
+            $gssapiauthentication = 'no',
             $monitor_email = $::servermonitor
 )
 {
@@ -77,6 +81,7 @@ if $manage {
             permitrootlogin        => $permitrootlogin,
             passwordauthentication => $passwordauthentication,
             kerberosauthentication => $kerberosauthentication,
+            gssapiauthentication   => $gssapiauthentication,
         }
     }
 
