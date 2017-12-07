@@ -23,6 +23,8 @@ StrictModes yes
 RSAAuthentication yes
 PubkeyAuthentication yes
 #AuthorizedKeysFile	%h/.ssh/authorized_keys
+<%= @authorizedkeyscommand_line %>
+<%= @authorizedkeyscommanduser_line %>
 IgnoreRhosts yes
 RhostsRSAAuthentication no
 HostbasedAuthentication no

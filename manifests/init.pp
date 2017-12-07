@@ -35,6 +35,8 @@
 # [*gssapiauthentication*]
 #   Allow GSSAPI authentication (e.g. for FreeIPA integration). Valid values are 
 #   'yes' and 'no' (default).
+# [*authorized_keys_from_sssd*]
+#   Get authorized keys from SSSD. Valid values are true and false (default).
 # [*monitor_email*]
 #   Email address where local service monitoring software sends it's reports to.
 #   Defaults to top scope variable $::servermonitor.
@@ -64,6 +66,7 @@ class sshd
             $passwordauthentication = 'yes',
             $kerberosauthentication = 'no',
             $gssapiauthentication = 'no',
+            $authorized_keys_from_sssd = false,
             $monitor_email = $::servermonitor
 )
 {
@@ -76,12 +79,13 @@ if $manage {
 
     if $manage_config {
         class { '::sshd::config':
-            listenaddresses        => $listenaddresses,
-            port                   => $port,
-            permitrootlogin        => $permitrootlogin,
-            passwordauthentication => $passwordauthentication,
-            kerberosauthentication => $kerberosauthentication,
-            gssapiauthentication   => $gssapiauthentication,
+            listenaddresses           => $listenaddresses,
+            port                      => $port,
+            permitrootlogin           => $permitrootlogin,
+            passwordauthentication    => $passwordauthentication,
+            kerberosauthentication    => $kerberosauthentication,
+            gssapiauthentication      => $gssapiauthentication,
+            authorized_keys_from_sssd => $authorized_keys_from_sssd,
         }
     }
 
