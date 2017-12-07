@@ -7,7 +7,7 @@ class sshd::config
 (
     Array[String]    $listenaddresses,
     Integer          $port,
-    Enum['yes','no'] $permitrootlogin,
+    Enum['yes','no','without-password'] $permitrootlogin,
     Enum['yes','no'] $passwordauthentication,
     Enum['yes','no'] $kerberosauthentication,
     Enum['yes','no'] $gssapiauthentication,
