@@ -1,25 +1,36 @@
 sshd
 ====
 
-A general-purpose sshd module for Puppet
+A general-purpose sshd module for Puppet. Can be used in conjunction 
+FreeIPA/sssd. Has optional firewall and monit support.
 
 # Module usage
 
-* [Class: sshd](manifests/init.pp)
+Use the permissive defaults (password auth and root logins enabled):
 
-# Dependencies
+    include ::sshd
 
-See [metadata.json](metadata.json).
+Disable password auth, root logins and rate-limit connections with iptables and 
+ip6tables:
 
-# Operating system support
+    class { '::sshd':
+      permitrootlogin        => 'no',
+      passwordauthentication => 'no',
+      limit                  => '3/min',
+    }
 
-This module has been tested on
+Enable root logins without password when using ssh keys:
 
-* Ubuntu 10.04, 12.04, 14.04 and 16.04
-* Debian 6, 7 and 8
-* CentOS 6 and 7
-* FreeBSD 9 and 10
+    class { '::sshd':
+      permitrootlogin        => 'without-password',
+      passwordauthentication => 'no',
+    }
 
-It should be possible to port this module to Cygwin's sshd.
+Integrate with FreeIPA authentication:
 
-For details see [params.pp](manifests/params.pp).
+    class { '::sshd':
+      authorized_keys_from_sssd => true,
+      gssapiauthentication      => 'yes',
+    }
+
+For further details refer to [init.pp](manifests/init.pp).
