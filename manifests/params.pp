@@ -27,6 +27,8 @@ class sshd::params {
             # Which SSH host keys get generated depends a lot on the 
             # distribution.
             $host_keys = $::lsbdistcodename ? {
+                'bionic'  => ['rsa', 'dsa', 'ecdsa', 'ed25519' ],
+                'stretch' => ['rsa', 'dsa', 'ecdsa', 'ed25519' ],
                 'xenial'  => ['rsa', 'dsa', 'ecdsa', 'ed25519' ],
                 'jessie'  => ['rsa', 'dsa', 'ecdsa', 'ed25519' ],
                 'trusty'  => ['rsa', 'dsa', 'ecdsa', 'ed25519' ],
