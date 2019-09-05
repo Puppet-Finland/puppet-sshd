@@ -1,0 +1,21 @@
+fixtures:
+  forge_modules:
+    firewall:
+      repo: "puppetlabs/firewall"
+      ref: "2.0.0"
+    monit:
+      repo: "puppetfinland/monit"
+      ref: "1.2.1"
+    os:
+      repo: "puppetfinland/os"
+      ref: "1.1.3"
+    packetfilter:
+      repo: "puppetfinland/packetfilter"
+      ref: "2.0.3"
+    stdlib:
+      repo: "puppetlabs/stdlib"
+      ref: "4.25.1"
+    systemd:
+      repo: "puppetfinland/systemd"
+      ref: "1.0.0"
+
