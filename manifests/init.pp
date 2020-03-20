@@ -21,6 +21,14 @@
 #   IPv4 interfaces).
 # [*port*]
 #   Port on which sshd listens on. Defaults to 22.
+# [*allow_address_ipv4*]
+#   Allow connections through the firewall from this IPv4 address/subnet only.
+#   Passed to firewall resource's source parameter. For example '10.0.0.0/8'.
+#   Defaults to allowing connections from any IPv4 address.
+# [*allow_address_ipv6*]
+#   Allow connections through the firewall from this IPv6 address/subnet only.
+#   Passed to firewall resource's source parameter. Defaults to allowing
+#   connections from any IPv6 address.
 # [*limit*]
 #   Rate limit for SSH connections. For example '3/min'. Only affects
 #   iptables/ip6tables rules and is undef by default.
@@ -61,6 +69,8 @@ class sshd
     Boolean $manage_monit = true,
             $listenaddress = '0.0.0.0',
             $port = 22,
+            $allow_address_ipv4 = undef,
+            $allow_address_ipv6 = undef,
             $limit = undef,
             $permitrootlogin = 'yes',
             $passwordauthentication = 'yes',
@@ -93,8 +103,10 @@ if $manage {
 
     if $manage_packetfilter {
         class { '::sshd::packetfilter':
-            port  => $port,
-            limit => $limit,
+            port               => $port,
+            allow_address_ipv4 => $allow_address_ipv4,
+            allow_address_ipv6 => $allow_address_ipv6,
+            limit              => $limit,
         }
     }
 
