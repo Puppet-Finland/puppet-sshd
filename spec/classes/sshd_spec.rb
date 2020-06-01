@@ -9,17 +9,18 @@ require 'spec_helper'
 describe 'sshd' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
-      case os_facts[:osfamily]
-      when 'RedHat'
-        extra_facts = { :lsbdistcodename => 'RedHat', :systemd => true }
-      else
-        extra_facts = { :systemd => true }
-      end
+      extra_facts = if os_facts[:osfamily] == 'RedHat'
+                      { lsbdistcodename: 'RedHat', systemd: true }
+                    else
+                      { systemd: true }
+                    end
 
       let(:facts) do
         os_facts.merge(extra_facts)
       end
-      let(:params) { { :monitor_email => 'root@localhost' } }
+
+      let(:params) { { monitor_email: 'root@localhost' } }
+
       it { is_expected.to compile }
     end
   end
