@@ -11,9 +11,9 @@ describe 'sshd' do
     context "on #{os}" do
       case os_facts[:osfamily]
       when 'RedHat'
-        extra_facts = { :lsbdistcodename => 'RedHat', :has_systemd => true }
+        extra_facts = { :lsbdistcodename => 'RedHat', :systemd => true }
       else
-        extra_facts = { :has_systemd => true }
+        extra_facts = { :systemd => true }
       end
 
       let(:facts) do
